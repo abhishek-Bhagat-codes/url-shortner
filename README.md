@@ -53,7 +53,7 @@ views/
 
 db.js                            # Database connection setup
 index.js                         # Application entry point
-ErrorLog.txt                     # Error logs
+.env                             # Environment configuration (update by your system)
 log.txt                          # General logs
 package.json                     # Project configuration
 package-lock.json                # Dependency lock file
