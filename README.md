@@ -53,7 +53,6 @@ views/
 
 db.js                            # Database connection setup
 index.js                         # Application entry point
-.env                             # Environment configuration
 ErrorLog.txt                     # Error logs
 log.txt                          # General logs
 package.json                     # Project configuration
