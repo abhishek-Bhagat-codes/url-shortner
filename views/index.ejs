@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/globle.css">
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Enable system-based dark mode (Tailwind uses 'media' mode by default)
+      tailwind.config = {
+        darkMode: "media",
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-gray-50 text-gray-800 font-mono dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300"
+  >
+  <nav class="flex items-center justify-between bg-gray-800 p-4 text-white">
+    <!-- Left: Icon / Logo -->
+    <div class="left flex items-center space-x-2">
+      <!-- Example icon using emoji, replace with SVG or image if you want -->
+      <span class="text-2xl">🌐</span>
+      <span class="font-bold text-lg"><a href="/">URL_SHORT</a></span>
+    </div>
+
+    <!-- Right: Links -->
+    <div class="right flex items-center space-x-4">
+      <a href="/user/logout" class="hover:bg-red-400 bg-red-600 p-2 rounded-xl">Logout</a>
+      <!-- <a href="/user/login" class="hover:text-indigo-400">Login</a> -->
+    </div>
+  </nav>
+
+    <div
+      class="max-w-3xl mx-auto mt-12 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md"
+    >
+      <h1
+        class="text-3xl font-bold text-center text-indigo-600 dark:text-indigo-400 mb-6"
+      >
+        URL Shortener
+      </h1>
+
+      <% if (shortedId) { %>
+      <div
+        class="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-md p-4 mb-6 text-center"
+      >
+        <h2 class="text-lg font-semibold text-green-700 dark:text-green-400">
+          Your Short URL:
+        </h2>
+        <a
+          href="http://localhost:3000/url/<%= shortedId %>"
+          target="_blank"
+          class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300"
+        >
+          http://localhost:3000/url/<%= shortedId %>
+        </a>
+      </div>
+      <% } %>
+
+      <form
+        action="/url"
+        method="post"
+        class="flex flex-col sm:flex-row gap-3 mb-10"
+      >
+        <input
+          type="url"
+          name="mainUrl"
+          placeholder="Enter a full URL (https://...)"
+          class="flex-1 border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-indigo-500"
+          pattern="https://.*"
+          title="Please enter a full URL starting with https://"
+          required
+        />
+        <button
+          type="submit"
+          class="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white px-6 py-2 rounded-md transition"
+        >
+          Generate
+        </button>
+      </form>
+
+      <h2
+        class="text-2xl font-semibold mb-4 text-indigo-500 dark:text-indigo-300"
+      >
+        Your Stored URLs
+      </h2>
+
+      <% if (Urls && Urls.length > 0) { %>
+      <div class="overflow-x-auto">
+        <table
+          class="min-w-full border border-gray-200 dark:border-gray-700 text-sm"
+        >
+          <thead class="bg-indigo-100 dark:bg-indigo-900">
+            <tr>
+              <th
+                class="py-2 px-4 text-left border-b border-gray-200 dark:border-gray-700"
+              >
+                Original URL
+              </th>
+              <th
+                class="py-2 px-4 text-left border-b border-gray-200 dark:border-gray-700"
+              >
+                Short URL
+              </th>
+              <th
+                class="py-2 px-4 text-center border-b border-gray-200 dark:border-gray-700"
+              >
+                Visits
+              </th>
+              <th
+                class="py-2 px-4 text-left border-b border-gray-200 dark:border-gray-700"
+              >
+                Created At
+              </th>
+            <th
+                class="py-2 px-4 text-left border-b border-gray-200 dark:border-gray-700"
+              >
+                Action 
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Urls.forEach(url => { %>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/70">
+              <td
+                class="py-2 px-4 border-b border-gray-200 dark:border-gray-700"
+              >
+                <a
+                  href="<%= url.URL %>"
+                  target="_blank"
+                  class="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  <%= url.URL %>
+                </a>
+              </td>
+              <td
+                class="py-2 px-4 border-b border-gray-200 dark:border-gray-700"
+              >
+                <a
+                  href="/url/<%= url.ShortUrl %>"
+                  target="_blank"
+                  class="text-indigo-600 dark:text-indigo-400 hover:underline"
+                >
+                  <%= url.ShortUrl %>
+                </a>
+              </td>
+              <td
+                class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-center"
+              >
+                <%= url.vistingHistory.length %>
+              </td>
+              <td
+                class="py-2 px-4 border-b border-gray-200 dark:border-gray-700"
+              >
+                <%= new Date(url.createdAt).toLocaleString() %>
+              </td>
+              <td
+                class="py-2 px-4 border-b border-gray-200 dark:border-gray-700"
+              >
+                <button
+                  onclick='copyText("<%= url.ShortUrl %>")'
+                  class="bg-green-600 text-white p-2 rounded-md hover:bg-blue-700"
+                >
+                  copy
+                </button>
+
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } else { %>
+      <p class="text-gray-500 dark:text-gray-400 italic">No URLs found.</p>
+      <% } %>
+    </div>
+  </body>
+  <script>
+      function copyText(shortId) {
+        const baseUrl = window.location.origin; // automatically localhost or live URL
+        const fullUrl = `${baseUrl}/url/${shortId}`;
+
+        navigator.clipboard.writeText(fullUrl)
+          .then(() => alert("Copied: " + fullUrl))
+          .catch(err => console.error("Failed to copy:", err));
+      }
+  </script>
+</html>

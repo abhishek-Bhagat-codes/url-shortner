@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <nav class="flex items-center justify-between bg-gray-800 p-4 text-white">
+      <!-- Left: Icon / Logo -->
+      <div class="left flex items-center space-x-2">
+          <!-- Example icon using emoji, replace with SVG or image if you want -->
+          <span class="text-2xl">🌐</span>
+          <span class="font-bold text-lg"><a href="/">URL_SHORT</a></span>
+      </div>
+  
+      <!-- Right: Links -->
+      <div class="right flex items-center space-x-4">
+          <!-- <a href="/user/signUp" class="hover:text-indigo-400">Sign Up</a> -->
+          <a href="/user/login" class="hover:text-indigo-400">Login</a>
+      </div>
+  </nav>
+
+<div class="min-h-screen flex items-center justify-center bg-[#0f172a] text-gray-200">
+
+  <div class="w-full max-w-md bg-[#1e293b] rounded-xl shadow-lg p-8">
+    <h2 class="text-2xl font-bold text-center text-indigo-400 mb-6">Create an Account</h2>
+
+
+<% if(msg) { %>
+  <p class="text-green-400 text-center mb-4 font-medium">
+    <%= msg %>
+  </p>
+<% } %>
+
+<% if(errMsg) { %>
+  <p class="text-red-400 text-center mb-4 font-medium">
+    <%= errMsg %>
+  </p>
+<% } %>
+
+<form action="" method="post" class="space-y-5">
+  <div>
+    <input type="text" name="username" placeholder="Enter Username"
+      class="w-full px-4 py-2 bg-[#0f172a] border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-100 placeholder-gray-400" />
+  </div>
+
+  <div>
+    <input type="email" name="email" placeholder="Enter Email"
+      class="w-full px-4 py-2 bg-[#0f172a] border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-100 placeholder-gray-400" />
+  </div>
+
+  <div>
+    <input type="password" name="password" placeholder="Create Password"
+      class="w-full px-4 py-2 bg-[#0f172a] border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-100 placeholder-gray-400" />
+  </div>
+
+  <button type="submit"
+    class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-200">
+    Sign Up
+  </button>
+</form>
+
+<p class="text-sm text-center mt-6 text-gray-400">
+  Already have an account?
+  <a href="/user/login" class="text-indigo-400 hover:underline">Log in</a>
+</p>
+
+
+  </div>
+</div>
+</body>
+
+</html>

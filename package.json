@@ -1,0 +1,21 @@
+{
+  "name": "short-url",
+  "version": "1.0.0",
+  "description": "in this project i make short-url",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1",
+    "shortid": "^2.2.17",
+    "uuid": "^13.0.0"
+  }
+}
