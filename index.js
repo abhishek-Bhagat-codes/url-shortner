@@ -29,10 +29,10 @@ app.listen(PORT, () => {
 });
 
 //log each request 
-app.use((req,res,next)=>{const log = `${new Date().toISOString()} - ${req.method} ${req.url}\n`;
-  fs.appendFile("log.txt",log,(err)=>{if(err){console.log("somthing is wrong while writing our log :< ")}})
-  next();
-})
+// app.use((req,res,next)=>{const log = `${new Date().toISOString()} - ${req.method} ${req.url}\n`;
+//   fs.appendFile("log.txt",log,(err)=>{if(err){console.log("somthing is wrong while writing our log :< ")}})
+//   next();
+// })
 
 //header labling 
 app.use((req, res, next) => {
