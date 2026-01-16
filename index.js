@@ -2,7 +2,8 @@ const express = require("express");
 const router = require("./routers/url.js");
 const app = express();
 const fs = require("fs");
-const mongoose = require("./db.js");  
+// const mongoose = require("./db.js");  
+const connectDB = require("./db.js");
 const URL = require("./models/URL.models.js")
 const userRouter = require("./routers/user.routes.js");
 const path = require("path");
@@ -10,6 +11,9 @@ const cookieParser = require('cookie-parser');
 const { checkIsLoginOrNot } = require("./middleware/auth.js");
 const userModel = require("./models/user.model.js")
 require('dotenv').config();
+
+connectDB();
+
 
 //server utlitys 
 app.set("view engine","ejs");

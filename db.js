@@ -1,14 +1,19 @@
 const mongoose = require("mongoose");
 
-const mongoURI = 'mongodb://127.0.0.1:27017/shortURL';
+const connectDB = async () => {
+  try {
+    const uri = process.env.MONGO_URI;
 
-mongoose.connect(mongoURI)
-  .then(() => {
-    console.log("✅ Server is connected to database!");
-  })
-  .catch((err) => {
-    console.error("❌ Database connection error:", err);
-  });
+    if (!uri) {
+      throw new Error("MONGO_URI is missing in .env");
+    }
 
-module.exports = mongoose;
+    await mongoose.connect(uri);
+    console.log("✅ Database connected");
+  } catch (error) {
+    console.error("❌ Database connection error:", error.message);
+    process.exit(1);
+  }
+};
 
+module.exports = connectDB;
